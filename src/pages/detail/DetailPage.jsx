@@ -3,6 +3,8 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import Sankey from 'highcharts/modules/sankey'
 
+import styles from './DetailPage.module.css'
+
 Sankey(Highcharts)
 
 const options = {
@@ -71,17 +73,15 @@ const options = {
 
 }
 
-const DetailPage = ({ children }) => {
-  return (
-    <div>
-      Details page
-      <HighchartsReact
-        highcharts={Highcharts}
-        options={options}
-        className={styles.container}
-      />
-    </div>
-  )
-}
+const DetailPage = ({ children }) => (
+  <div className={styles.container}>
+    Details page
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+      className={styles.container}
+    />
+  </div>
+)
 
 export default DetailPage
