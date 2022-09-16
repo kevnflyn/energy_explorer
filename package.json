@@ -10,6 +10,7 @@
     "convert-mock-data": "node ./scripts/convertMockDataFromCsvToJson.js > data/mockData.json"
   },
   "dependencies": {
+    "antd": "^4.23.1",
     "fast-csv": "^4.3.6",
     "highcharts": "^10.2.1",
     "highcharts-react-official": "^3.1.0",
