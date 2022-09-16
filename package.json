@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "fast-csv": "^4.3.6",
+    "highcharts": "^10.2.1",
+    "highcharts-react-official": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.4.0",
