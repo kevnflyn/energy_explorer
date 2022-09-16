@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "convert-mock-data": "node ./scripts/convertMockDataFromCsvToJson.js > data/mockData.json"
   },
   "dependencies": {
+    "fast-csv": "^4.3.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.4.0",
