@@ -57,10 +57,13 @@ const convertMockData = async () => {
           path.resolve(process.cwd(), 'data', filename),
           mockData[propertyName],
           () => {
-            mockData[propertyName] = mockData[propertyName].map(row => {
+            mockData[propertyName] = mockData[propertyName].reduce((rows, row) => {
               const [index, ...rest] = Object.values(row)
-              return {[index]: rest.map(numString => parseFloat(numString))}
-            })
+              return {
+                ...rows,
+                [index]: rest.map(numString => parseFloat(numString))
+              }
+            }, {})
           }
         )
       })
