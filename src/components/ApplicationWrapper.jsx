@@ -1,13 +1,16 @@
 import React from 'react'
-import { Layout, Breadcrumb, Menu } from 'antd'
+import { Layout, Breadcrumb, Menu, Space } from 'antd'
 import styles from './ApplicationWrapper.module.css'
+import Brand from './Brand'
 
-const { Header, Content, Sider } = Layout
+const { Header, Content } = Layout
 
-const ApplicationWrapper = ({ children, header }) => (
+const ApplicationWrapper = ({ children }) => (
   <Layout>
     <Header>
-      {header}
+      <Space direction='horizontal'>
+        <Brand/>
+      </Space>
       {/* <div className="logo" /> */}
       {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} /> */}
     </Header>

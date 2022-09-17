@@ -59,7 +59,10 @@ const DetailPage = () => {
   }
 
   return (
-    <ApplicationWrapper header={<BackButton href={routes.home}/>}>
+    <ApplicationWrapper>
+      <BackButton href={routes.home}/>
+      <br/>
+      <br/>
       <div className={styles.container}>
         <Space className={styles.container} direction='vertical' size='large'>
           <Space direction='vertical' size='middle'>
