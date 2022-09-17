@@ -46,8 +46,7 @@ const DetailPage = () => {
           },
         })
         const scenario = await response.json()
-        const scenarioChartData = getSankyChartData(scenario, timeOfYear)
-        setScenarioData(scenarioChartData)
+        setScenarioData(scenario)
       } catch (error) {
         console.warn(error)
       }
@@ -72,7 +71,7 @@ const DetailPage = () => {
             )}
           </Radio.Group>
           <ScenariosSankyChart
-            scenario={scenarioData}
+            scenario={getSankyChartData(scenarioData, timeOfYear)}
             timeOfYear={timeOfYear}
             id={id}/>
         </Space>
