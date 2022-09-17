@@ -1,3 +1,8 @@
-.layout {
-  min-height: 100vh - 50px;
+.layout .content {
+  min-height: calc(100vh - 64px);
+}
+
+.content {
+  padding: 24px;
+  margin: 0;
 }
