@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react"
 import { useParams } from 'react-router-dom'
-import { Radio, Typography } from 'antd'
+import { Radio, Space, Typography } from 'antd'
 
 import ApplicationWrapper from "../../components/ApplicationWrapper"
 import BackButton from '../../components/BackButton'
@@ -60,19 +60,22 @@ const DetailPage = () => {
   }
 
   return (
-    <ApplicationWrapper>
+    <ApplicationWrapper header={<BackButton href={routes.home}/>}>
       <div className={styles.container}>
-        <BackButton href={routes.home}/>
-        <Typography.Title level={1}>{scenarioTitles[scenarioData.name]}</Typography.Title>
-        <Radio.Group value={timeOfYear} onChange={onChangeRadio}>
-          {timesOfYear.map(({ value, label }) =>
-            <Radio key={value} value={value}>{label}</Radio>
-          )}
-        </Radio.Group>
-        <ScenariosSankyChart
-          scenario={scenarioData}
-          timeOfYear={timeOfYear}
-          id={id}/>
+        <Space className={styles.container} direction='vertical' size='large'>
+          <Space direction='vertical' size='middle'>
+            <Typography.Title level={1}>{scenarioTitles[scenarioData.name]}</Typography.Title>
+          </Space>
+          <Radio.Group value={timeOfYear} onChange={onChangeRadio}>
+            {timesOfYear.map(({ value, label }) =>
+              <Radio key={value} value={value}>{label}</Radio>
+            )}
+          </Radio.Group>
+          <ScenariosSankyChart
+            scenario={scenarioData}
+            timeOfYear={timeOfYear}
+            id={id}/>
+        </Space>
       </div>
     </ApplicationWrapper>
   )

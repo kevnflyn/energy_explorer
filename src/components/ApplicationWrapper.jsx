@@ -4,9 +4,10 @@ import styles from './ApplicationWrapper.module.css'
 
 const { Header, Content, Sider } = Layout
 
-const ApplicationWrapper = ({ children }) => (
+const ApplicationWrapper = ({ children, header }) => (
   <Layout>
     <Header>
+      {header}
       {/* <div className="logo" /> */}
       {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} /> */}
     </Header>
