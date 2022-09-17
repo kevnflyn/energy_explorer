@@ -1,11 +1,11 @@
 import React from 'react'
-import SankyChart from './SankyChart'
+import ScenariosSankyChart from './ScenariosSankyChart'
 
 import styles from './DetailPage.module.css'
 
-const DetailPage = ({ children }) => (
+const DetailPage = () => (
   <div className={styles.container}>
-    <SankyChart/>
+    <ScenariosSankyChart/>
   </div>
 )
 

@@ -1,4 +1,7 @@
-const getSankyChartOptions = (data, text) => ({
+const getSankyChartOptions = ({
+  data,
+  nodes
+}, text) => ({
   title: { text },
   accessibility: {
     point: {
@@ -10,6 +13,7 @@ const getSankyChartOptions = (data, text) => ({
     {
       keys: ["from", "to", "weight"],
       data,
+      nodes,
       type: "sankey",
       name: "Sankey series for ",
     },
