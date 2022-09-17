@@ -1,39 +1,41 @@
-import { Layout } from 'antd'
 import React from 'react'
+import { Layout, Breadcrumb, Menu } from 'antd'
+import styles from './ApplicationWrapper.module.css'
 
 const { Header, Content, Sider } = Layout
 
 const ApplicationWrapper = ({ children }) => (
   <Layout>
-    <Header className="header">
-      <div className="logo" />
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
+    <Header>
+      {/* <div className="logo" /> */}
+      {/* <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} /> */}
     </Header>
     <Layout>
-      <Sider width={200} className="site-layout-background">
-        <Menu
+      {/* <Sider width={200}> */}
+        {/* <Menu
           mode="inline"
           defaultSelectedKeys={['1']}
           defaultOpenKeys={['sub1']}
           style={{ height: '100%', borderRight: 0 }}
           items={items2}
-        />
-      </Sider>
+        /> */}
+      {/* </Sider> */}
       <Layout style={{ padding: '0 24px 24px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
+        {/* <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
           <Breadcrumb.Item>List</Breadcrumb.Item>
           <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
+        </Breadcrumb> */}
         <Content
-          className="site-layout-background"
+          // className="site-layout-background"
+          className={styles.layout}
           style={{
             padding: 24,
             margin: 0,
             minHeight: 280,
           }}
         >
-          Content
+          {children}
         </Content>
       </Layout>
     </Layout>

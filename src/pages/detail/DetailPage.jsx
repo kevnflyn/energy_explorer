@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react"
+import { useParams } from 'react-router-dom'
+import { Radio, Typography } from 'antd'
+
+import ApplicationWrapper from "../../components/ApplicationWrapper"
+import BackButton from '../../components/BackButton'
 import ScenariosSankyChart from './ScenariosSankyChart'
+import scenarioTitles from '../../../data/scenarioTitleMap.json'
+import getSankyChartData from "./getSankyChartData.js"
+import { routes } from '../../routes'
 
 import styles from './DetailPage.module.css'
-import { Radio } from 'antd'
-import { useCallback } from 'react'
-import { useParams } from 'react-router-dom'
-import BackButton from '../../components/BackButton'
-import { routes } from '../../routes'
-import getSankyChartData from "./getSankyChartData.js"
-import { Typography } from "antd"
 
 const timesOfYear = [
   {
@@ -59,19 +60,21 @@ const DetailPage = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <BackButton href={routes.home}/>
-      <Typography.Title level={1}>{scenarioData.name}</Typography.Title>
-      <Radio.Group value={timeOfYear} onChange={onChangeRadio}>
-        {timesOfYear.map(({ value, label }) =>
-          <Radio key={value} value={value}>{label}</Radio>
-        )}
-      </Radio.Group>
-      <ScenariosSankyChart
-        scenario={scenarioData}
-        timeOfYear={timeOfYear}
-        id={id}/>
-    </div>
+    <ApplicationWrapper>
+      <div className={styles.container}>
+        <BackButton href={routes.home}/>
+        <Typography.Title level={1}>{scenarioTitles[scenarioData.name]}</Typography.Title>
+        <Radio.Group value={timeOfYear} onChange={onChangeRadio}>
+          {timesOfYear.map(({ value, label }) =>
+            <Radio key={value} value={value}>{label}</Radio>
+          )}
+        </Radio.Group>
+        <ScenariosSankyChart
+          scenario={scenarioData}
+          timeOfYear={timeOfYear}
+          id={id}/>
+      </div>
+    </ApplicationWrapper>
   )
 }
 

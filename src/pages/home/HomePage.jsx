@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Typography } from "antd";
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
+import ApplicationWrapper from "../../components/ApplicationWrapper"
 
 import StatCircle from "../../components/StatCircle";
 import { Link } from "react-router-dom";
@@ -31,7 +30,7 @@ const HomePage = ({ children }) => {
     })().catch((error) => console.error("Could not load scenarios", error));
   }, []);
   return (
-    <main>
+    <ApplicationWrapper>
       <Typography.Title level={1}>Available scenarios</Typography.Title>
       <Table dataSource={scenarioSummary} pagination={false}>
         <Column
@@ -52,7 +51,7 @@ const HomePage = ({ children }) => {
           render={toPercentage(showCircle)}
         />
       </Table>
-    </main>
+    </ApplicationWrapper>
   );
 };
 
