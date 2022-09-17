@@ -37,6 +37,7 @@ const DetailPage = () => {
   useEffect(() => {
     const fetchScenario = async () => {
       try {
+        // ToDo: we need to fetch from this API at some point :)
         // const response = await fetch(`http://localhost:8000/scenarios/${id}`)
         const response = await fetch(`../../../data/scenario_${id}.json`, {
           headers: {
