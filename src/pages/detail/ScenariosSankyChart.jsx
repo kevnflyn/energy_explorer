@@ -9,7 +9,7 @@ import getSankyChartData from './getSankyChartData.js'
 Sankey(Highcharts)
 
 const ScenariosSankyChart = ({ timeOfYear, id }) => {
-  const [result, setResult] = useState(null)
+  const [scenarioData, setScenarioData] = useState(null)
 
   useEffect(() => {
     const fetchScenario = async () => {
@@ -21,8 +21,7 @@ const ScenariosSankyChart = ({ timeOfYear, id }) => {
         })
         const scenario = await response.json()
         const scenarioChartData = getSankyChartData(scenario, timeOfYear)
-        console.log('scenarioChartData, ', scenarioChartData)
-        setResult(scenarioChartData)
+        setScenarioData(scenarioChartData)
       } catch (error) {
         console.warn(error)
       }
@@ -30,7 +29,7 @@ const ScenariosSankyChart = ({ timeOfYear, id }) => {
     fetchScenario()
   }, [])
 
-  if (result === null) {
+  if (scenarioData === null) {
     return null
   }
 
@@ -39,7 +38,7 @@ const ScenariosSankyChart = ({ timeOfYear, id }) => {
       <HighchartsReact
         highcharts={Highcharts}
         options={getSankyChartOptions(
-          result,
+          scenarioData,
           'Typical Days GWH 2020')
         }
       />

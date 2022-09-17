@@ -3,7 +3,7 @@ const getSankyChartOptions = ({
   data,
   nodes
 }) => ({
-  title: { name },
+  title: { text: name },
   accessibility: {
     point: {
       valueDescriptionFormat:

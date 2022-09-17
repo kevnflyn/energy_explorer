@@ -69,6 +69,7 @@ const getSankyChartData = (scenario, timeOfYear) => {
       return node
     })
     return {
+      ...prev,
       data: [
         ...prev.data,
         ...labelGroupings

@@ -27,7 +27,6 @@ const DetailPage = () => {
     setTimeOfYear(target.value)
   }, [])
   const { id } = useParams()
-  console.log('id, ', id)
   return (
     <div className={styles.container}>
       <Radio.Group value={timeOfYear} onChange={onChangeRadio}>
