@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Typography } from "antd";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -17,19 +17,31 @@ function toPercentage(render) {
   return (value) => render((value * 100).toFixed(0) + "%");
 }
 
+async function fetchScenarios() {
+  const response = await fetch("http://localhost:8000/scenarios");
+  return await response.json();
+}
+
 const HomePage = ({ children }) => {
-  const [scenarioSummary, setScenarioSummary] = useState(() => [
-    { key: "Scenario 1", co2: 145, cost: 33.6, domestic: 0.56 },
-    { key: "Scenario 2", co2: 133, cost: 55.78, domestic: 0.98 },
-  ]);
+  const [scenarioSummary, setScenarioSummary] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      setScenarioSummary(await fetchScenarios());
+    })().catch((error) => console.error("Could not load scenarios", error));
+  }, []);
   return (
     <main>
       <Typography.Title level={1}>Available scenarios</Typography.Title>
       <Table dataSource={scenarioSummary} pagination={false}>
         <Column
-          dataIndex="key"
-          key="key"
-          render={(value) => <Link to={routes.detail}>{value}</Link>}
+          dataIndex="name"
+          key="name"
+          render={(value, scenario) => (
+            <Link to={routes.details.replace(":key", scenario.key)}>
+              {value}
+            </Link>
+          )}
         />
         <Column title="CO2" dataIndex="co2" key="co2" render={showCircle} />
         <Column title="Cost" dataIndex="cost" key="cost" render={showCircle} />

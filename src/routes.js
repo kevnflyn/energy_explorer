@@ -1,7 +1,7 @@
-
-export const appBaseRoute = '/app'
+export const appBaseRoute = "/app";
 
 export const routes = {
-  home: '/',
-  detail: '/detail'
-}
+  home: "/",
+  detail: "/detail",
+  details: "/scenario/:key",
+};
