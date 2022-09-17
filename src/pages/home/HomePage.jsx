@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Typography } from "antd";
-import ApplicationWrapper from "../../components/ApplicationWrapper"
+import ApplicationWrapper from "../../components/ApplicationWrapper";
 
 import StatCircle from "../../components/StatCircle";
 import { Link } from "react-router-dom";
@@ -16,9 +16,16 @@ function toPercentage(render) {
   return (value) => render((value * 100).toFixed(0) + "%");
 }
 
+function withUnit(unit, render) {
+  return (value) => render(`${value} ${unit}`);
+}
+
 async function fetchScenarios() {
   const response = await fetch("http://localhost:8000/scenarios");
-  return await response.json();
+  return (await response.json()).map((scenario) => ({
+    ...scenario,
+    cost: Number(scenario.cost).toFixed(2),
+  }));
 }
 
 const HomePage = ({ children }) => {
@@ -42,8 +49,18 @@ const HomePage = ({ children }) => {
             </Link>
           )}
         />
-        <Column title="CO2" dataIndex="co2" key="co2" render={showCircle} />
-        <Column title="Cost" dataIndex="cost" key="cost" render={showCircle} />
+        <Column
+          title="CO2"
+          dataIndex="co2"
+          key="co2"
+          render={withUnit("GW/h", showCircle)}
+        />
+        <Column
+          title="Cost"
+          dataIndex="cost"
+          key="cost"
+          render={withUnit("CHF", showCircle)}
+        />
         <Column
           title="Domestic"
           dataIndex="domestic"
