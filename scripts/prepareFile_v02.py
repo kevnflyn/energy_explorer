@@ -53,11 +53,11 @@ def create_json_szenario_data(my_dataframe):
             entry['longUnit'] = 'Total GWh per time interval'
             entry['shortUnit'] = 'GWh/t'
         else:
-            entry['value'] = dataPoint.iloc[i]
+            entry['value'] = dataPoint.iloc[1]
             if 'CO2' in dataPoint.iloc[0]:
                 entry['unit'] = 'MT CO2-eq'
             else:
-                entry['unit'] = 'billion €'
+                entry['unit'] = 'billion euro'
 
         dict_sources[sector_name] = entry
 
