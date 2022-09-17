@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import Sankey from 'highcharts/modules/sankey'
-import mockData from '../../../data/mockData.json'
 import getSankyChartOptions from './getSankyChartOptions.js'
 import getSankyChartData from './getSankyChartData.js'
+import { Typography } from 'antd'
 
 Sankey(Highcharts)
 
@@ -35,6 +35,7 @@ const ScenariosSankyChart = ({ timeOfYear, id }) => {
 
   return (
     <div key={timeOfYear}>
+      <Typography.Title level={1}>{scenarioData.name}</Typography.Title>
       <HighchartsReact
         highcharts={Highcharts}
         options={getSankyChartOptions(
