@@ -38,7 +38,7 @@ const HomePage = ({ children }) => {
           dataIndex="name"
           key="name"
           render={(value, scenario) => (
-            <Link to={routes.details.replace(":key", scenario.key)}>
+            <Link to={routes.scenario.replace(":id", scenario.key)}>
               {value}
             </Link>
           )}

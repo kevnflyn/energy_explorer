@@ -5,17 +5,16 @@ import Sankey from 'highcharts/modules/sankey'
 import mockData from '../../../data/mockData.json'
 import getSankyChartOptions from './getSankyChartOptions.js'
 import getSankyChartData from './getSankyChartData.js'
-// import { useLocation } from 'react-router'
 
 Sankey(Highcharts)
 
-const ScenariosSankyChart = ({ timeOfYear }) => {
+const ScenariosSankyChart = ({ timeOfYear, id }) => {
   const [result, setResult] = useState(null)
 
   useEffect(() => {
     const fetchScenario = async () => {
       try {
-        const response = await fetch(`../../../data/scenario_${1}.json`, {
+        const response = await fetch(`../../../data/scenario_${id}.json`, {
           headers: {
             'Content-Type': 'application/json'
           }

@@ -2,6 +2,5 @@ export const appBaseRoute = "/app";
 
 export const routes = {
   home: "/",
-  detail: "/detail",
-  details: "/scenario/:key",
+  scenario: "/scenario/:id",
 };

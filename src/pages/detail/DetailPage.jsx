@@ -4,6 +4,7 @@ import ScenariosSankyChart from './ScenariosSankyChart'
 import styles from './DetailPage.module.css'
 import { Radio } from 'antd'
 import { useCallback } from 'react'
+import { useParams } from 'react-router-dom'
 
 const timesOfYear = [
   {
@@ -25,6 +26,8 @@ const DetailPage = () => {
   const onChangeRadio = useCallback(({ target }) => {
     setTimeOfYear(target.value)
   }, [])
+  const { id } = useParams()
+  console.log('id, ', id)
   return (
     <div className={styles.container}>
       <Radio.Group value={timeOfYear} onChange={onChangeRadio}>
@@ -32,7 +35,7 @@ const DetailPage = () => {
           <Radio key={value} value={value}>{label}</Radio>
         )}
       </Radio.Group>
-      <ScenariosSankyChart timeOfYear={timeOfYear}/>
+      <ScenariosSankyChart timeOfYear={timeOfYear} id={id}/>
     </div>
   )
 }
