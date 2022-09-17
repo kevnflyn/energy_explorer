@@ -9,11 +9,11 @@ const columnPositions = [
     'Geothermal',
     'Biomass',
     'Waste',
-    'Hydrogen'
+    'Hydrogen',
+    'Hydro'
   ],
   [
     // 'Electricity',
-    'Hydro'
   ],
   [
     'CHPs',
@@ -33,60 +33,58 @@ const columnPositions = [
   ]
 ]
 
-const getSankyChartData = data => {
-  const sankyChartData = Object
-    .keys(data)
-    .filter(key => data[key][0] !== 0)
-    .reduce((prev, key) => {
-      // including CO2|Total
-      if (key.includes('Total') | key.includes('System cost')) {
-        return prev
+const getSankyChartData = (scenario, timeOfYear) => {
+  const sankyChartData = scenario.data.energySources.reduce((prev, key) => {
+    // including CO2|Total
+    if (key.includes('Total') | key.includes('System cost')) {
+      return prev
+    }
+    const labels = key
+      .split('|')
+      .reverse()
+    const labelGroupings = labels.reduce((labelPairsPlusValue, label, index) => {
+      if (index === labels.length - 1) {
+        return labelPairsPlusValue
       }
-      const labels = key
-        .split('|')
-        .reverse()
-      const labelGroupings = labels.reduce((labelPairsPlusValue, label, index) => {
-        if (index === labels.length - 1) {
-          return labelPairsPlusValue
+      return [
+        ...labelPairsPlusValue,
+        {
+          from: label,
+          to: labels[index + 1],
+          weight: scenario.data[key][timeOfYear]
         }
-        return [
-          ...labelPairsPlusValue,
-          {
-            from: label,
-            to: labels[index + 1],
-            weight: data[key][0]
-          }
-        ]
-      }, [])
-      const nodes = labels.map(label => {
-        const columnIndex = columnPositions.findIndex(column => (
-          column.find(columnLabel => columnLabel === label)
-        ))
-        const node = {
-          allowOverlap: false
-        }
-        if (columnIndex !== -1) {
-          node.id = label
-          node.column = columnIndex
-        }
-        return node
-      })
-      return {
-        data: [
-          ...prev.data,
-          ...labelGroupings
-        ],
-        nodes: [
-          ...prev.nodes,
-          ...nodes
-        ]
+      ]
+    }, [])
+    const nodes = labels.map(label => {
+      const columnIndex = columnPositions.findIndex(column => (
+        column.find(columnLabel => columnLabel === label)
+      ))
+      const node = {
+        allowOverlap: false
       }
-    }, {
-      data: [],
-      nodes: []
+      if (columnIndex !== -1) {
+        node.id = label
+        node.column = columnIndex
+      }
+      return node
     })
+    return {
+      data: [
+        ...prev.data,
+        ...labelGroupings
+      ],
+      nodes: [
+        ...prev.nodes,
+        ...nodes
+      ]
+    }
+  }, {
+    name: scenario.name,
+    data: [],
+    nodes: []
+  })
 
-    sankyChartData.data.sort(({ from: a }, { from: b }) => {
+  sankyChartData.data.sort(({ from: a }, { from: b }) => {
     if (a < b) {
       return -1;
     }
