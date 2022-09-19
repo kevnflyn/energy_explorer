@@ -5,6 +5,7 @@ import ApplicationWrapper from "../../components/ApplicationWrapper";
 import StatCircle from "../../components/StatCircle";
 import { Link } from "react-router-dom";
 import { routes } from "../../routes";
+import { API_HOST } from "../../config";
 
 const { Column } = Table;
 
@@ -21,7 +22,7 @@ function withUnit(unit, render) {
 }
 
 async function fetchScenarios() {
-  const response = await fetch("http://localhost:8000/scenarios");
+  const response = await fetch(`${API_HOST}/scenarios`);
   return (await response.json()).map((scenario) => ({
     ...scenario,
     cost: Number(scenario.cost).toFixed(2),

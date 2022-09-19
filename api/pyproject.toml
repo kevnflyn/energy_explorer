@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Stéphane Bisinger <stephane@sbisinger.ch>"]
 readme = "README.md"
-packages = [{include = "energy_explorer_simple_api"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = "^3.10"
