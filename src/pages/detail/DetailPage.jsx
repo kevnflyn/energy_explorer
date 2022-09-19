@@ -5,7 +5,7 @@ import { Radio, Space, Typography } from 'antd'
 import ApplicationWrapper from "../../components/ApplicationWrapper"
 import BackButton from '../../components/BackButton'
 import ScenariosSankyChart from './ScenariosSankyChart'
-import scenarioTitles from '../../../data/scenarioTitleMap.json'
+import scenarioTitles from '../../scenarioTitleMap.json'
 import getSankyChartData from "./getSankyChartData.js"
 import { routes } from '../../routes'
 
