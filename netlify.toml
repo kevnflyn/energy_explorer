@@ -1,4 +1,4 @@
 [[redirects]]
-  from = "/*"
+  from = "/scenario/*"
   to = "/index.html"
   status = 200
