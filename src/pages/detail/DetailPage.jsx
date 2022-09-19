@@ -66,7 +66,7 @@ const DetailPage = () => {
       <div className={styles.container}>
         <Space className={styles.container} direction='vertical' size='large'>
           <Space direction='vertical' size='middle'>
-            <Typography.Title level={1}>{scenarioTitles[scenarioData.name]}</Typography.Title>
+            <Typography.Title level={1}>{scenarioTitles[scenarioData.name]} (GWh)</Typography.Title>
           </Space>
           <Radio.Group value={timeOfYear} onChange={onChangeRadio}>
             {timesOfYear.map(({ value, label }) =>
