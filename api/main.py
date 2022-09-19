@@ -11,6 +11,7 @@ origins = [
     "http://localhost",
     "http://localhost:5173",
     "http://localhost:8080",
+    "https://energy-explorer.netlify.app"
 ]
 
 app.add_middleware(
