@@ -29,7 +29,7 @@ async function fetchScenarios() {
   }));
 }
 
-const HomePage = ({ children }) => {
+const HomePage = () => {
   const [scenarioSummary, setScenarioSummary] = useState([]);
 
   useEffect(() => {
@@ -54,13 +54,13 @@ const HomePage = ({ children }) => {
           title="CO2"
           dataIndex="co2"
           key="co2"
-          render={withUnit("GW/h", showCircle)}
+          render={withUnit("MtCO2", showCircle)}
         />
         <Column
           title="Cost"
           dataIndex="cost"
           key="cost"
-          render={withUnit("CHF", showCircle)}
+          render={withUnit("M.CHF", showCircle)}
         />
         <Column
           title="Domestic"
