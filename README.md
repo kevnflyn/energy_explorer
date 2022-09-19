@@ -1,1 +1,1 @@
-# energy_explorer
+# Energy Explorer
