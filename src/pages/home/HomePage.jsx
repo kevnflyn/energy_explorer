@@ -6,6 +6,7 @@ import StatCircle from "../../components/StatCircle";
 import { Link } from "react-router-dom";
 import { routes } from "../../routes";
 import { API_HOST } from "../../config";
+import scenarioTitles from "../../scenarioTitleMap.json";
 
 const { Column } = Table;
 
@@ -46,7 +47,7 @@ const HomePage = () => {
           key="name"
           render={(value, scenario) => (
             <Link to={routes.scenario.replace(":id", scenario.key)}>
-              {value}
+              {scenarioTitles[value] ?? value}
             </Link>
           )}
         />
