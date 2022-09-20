@@ -19,14 +19,15 @@ function toPercentage(render) {
 }
 
 function withUnit(unit, render) {
-  return (value) => render(`${value} ${unit}`);
+  const formatter = new Intl.NumberFormat();
+  return (value) => render(`${formatter.format(value)} ${unit}`);
 }
 
 async function fetchScenarios() {
   const response = await fetch(`${API_HOST}/scenarios`);
   return (await response.json()).map((scenario) => ({
     ...scenario,
-    cost: Number(scenario.cost).toFixed(2),
+    cost: Math.round(scenario.cost),
   }));
 }
 
@@ -64,7 +65,7 @@ const HomePage = () => {
           render={withUnit("M.CHF", showCircle)}
         />
         <Column
-          title="Domestic"
+          title="Domestic Electricity Production"
           dataIndex="domestic"
           key="domestic"
           render={toPercentage(showCircle)}
