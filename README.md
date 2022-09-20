@@ -41,7 +41,8 @@ backend services part and the frontend UI part.
 ## Roadmap
 To be discussed and solidified.
 Until November 2022, we would like to add new features to help policymakers with
-the help of our main stakeholders and brainchild creator Adriana Carpucci.
+the help of our main stakeholders and direction from the project founder,
+Adriana Carpucci.
 
 ## Contributing
 Pull requests are welcome. However conventions and styles that have been setup
