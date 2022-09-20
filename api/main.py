@@ -1,5 +1,5 @@
 import os
-from typing import Union
+import json
 
 import pandas
 from fastapi import FastAPI
@@ -11,7 +11,7 @@ origins = [
     "http://localhost",
     "http://localhost:5173",
     "http://localhost:8080",
-    "https://energy-explorer.netlify.app"
+    "https://energy-explorer.netlify.app",
 ]
 
 app.add_middleware(
@@ -33,16 +33,33 @@ def read_root():
 @app.get("/scenarios")
 def list_scenarios():
     load_scenarios()
-    print(scenario_db)
-    return list(scenario_db.values())
+    scenarios = [
+        format_scenario_list_response(scenario) for scenario in scenario_db.values()
+    ]
+    print(scenarios)
+    return scenarios
 
 
 @app.get("/scenarios/{id}")
-def list_scenarios(id):
+def get_scenario(id):
     load_scenarios()
     print(scenario_db)
     print(scenario_db.get(id))
     return scenario_db.get(id)
+
+
+def format_scenario_list_response(scenario):
+    domestic = 1 - (
+        scenario["data"]["Electricity|Imports"]["yearValue"]
+        / scenario["data"]["Electricity|Total"]["yearValue"]
+    )
+    return {
+        "key": scenario["key"],
+        "name": scenario["name"],
+        "co2": scenario["data"]["CO2|Total"]["value"],
+        "cost": scenario["data"]["Costs|System cost"]["value"],
+        "domestic": domestic,
+    }
 
 
 def load_scenarios():
@@ -50,15 +67,21 @@ def load_scenarios():
     if len(scenario_db) != 0:
         return
     scenario_files = [
-        filename for filename in os.listdir("./data") if filename.endswith(".csv")
+        filename for filename in os.listdir("./data") if filename.endswith(".json")
     ]
-    scenario_db = {
-        scenario.replace(".csv", ""): format_scenario(scenario)
-        for i, scenario in enumerate(scenario_files)
-    }
+    for scenario in scenario_files:
+        scenario_info = format_scenario(scenario)
+        scenario_db[scenario_info["key"]] = scenario_info
 
 
-def format_scenario(scenario_csv):
+def format_json_scenario(scenario_json):
+    with open(f"data/{scenario_json}", "r") as json_file:
+        scenario = json.load(json_file)
+        scenario["key"] = scenario["name"]
+        return scenario
+
+
+def format_csv_scenario(scenario_csv):
     df = pandas.read_csv(f"data/{scenario_csv}", header=None)
     print(df)
     print(df[df[0] == "Electricity|Imports"].squeeze()[1:])
@@ -72,3 +95,6 @@ def format_scenario(scenario_csv):
             df[df[0] == "Electricity|Imports"].squeeze()[1:], errors="ignore"
         ).sum(),
     }
+
+
+format_scenario = format_json_scenario
