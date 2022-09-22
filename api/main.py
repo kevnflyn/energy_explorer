@@ -49,16 +49,25 @@ def get_scenario(id):
 
 
 def format_scenario_list_response(scenario):
-    domestic = 1 - (
-        scenario["data"]["Electricity|Imports"]["yearValue"]
-        / scenario["data"]["Electricity|Total"]["yearValue"]
+    print(scenario["data"]["energySources"])
+    total = sum(
+        scenario["data"][key]["yearValue"]
+        for key in scenario["data"]["energySources"]
+        if len(key.split("|")) == 2 and key.endswith("|Total")
     )
+    imports = scenario["data"]["Electricity|Imports"]["yearValue"] + sum(
+        scenario["data"][key]["yearValue"]
+        for key in scenario["data"]["energySources"]
+        if key.endswith("|Gas") or key.endswith("|Oil") or key.endswith("|Coal")
+    )
+    domestic = 1 - (imports / total)
     return {
         "key": scenario["key"],
         "name": scenario["name"],
         "co2": scenario["data"]["CO2|Total"]["value"],
         "cost": scenario["data"]["Costs|System cost"]["value"],
         "domestic": domestic,
+        "total": total
     }
 
 

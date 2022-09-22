@@ -65,10 +65,16 @@ const HomePage = () => {
           render={withUnit("M.CHF", showCircle)}
         />
         <Column
-          title="Domestic Electricity Production"
+          title="Domestic Energy Production"
           dataIndex="domestic"
           key="domestic"
           render={toPercentage(showCircle)}
+        />
+        <Column
+          title="Total energy"
+          dataIndex="total"
+          key="total"
+          render={withUnit("GWh", showCircle)}
         />
       </Table>
     </ApplicationWrapper>
