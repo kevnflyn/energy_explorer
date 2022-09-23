@@ -22,8 +22,7 @@ export function formatWinterSummerComparison(scenario) {
     .filter(
       (sourceName) =>
         !sourceName.endsWith("|Total") &&
-        !sourceName.endsWith("|Electricity") &&
-        !sourceName.endsWith("|Imports")
+        !sourceName.endsWith("|Electricity")
     )
     .reduce((categoryMap, sourceName) => {
       const category = translateCategory(sourceName.split("|").pop());
