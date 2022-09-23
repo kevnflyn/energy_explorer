@@ -11,6 +11,9 @@ import { routes } from "../../routes";
 
 import styles from "./DetailPage.module.css";
 import PieChart, { formatImportsPieChart } from "../../components/PieChart";
+import PolarChart, {
+  formatWinterSummerComparison,
+} from "../../components/PolarChart";
 
 const timesOfYear = [
   {
@@ -88,6 +91,10 @@ const DetailPage = () => {
           <PieChart
             scenario={formatImportsPieChart(scenarioData, timeOfYear)}
           />
+          <Typography.Title level={2}>
+            Winter-Summer Energy Mix
+          </Typography.Title>
+          <PolarChart scenario={formatWinterSummerComparison(scenarioData)} />
         </Space>
       </div>
     </ApplicationWrapper>
