@@ -49,17 +49,9 @@ def get_scenario(id):
 
 
 def format_scenario_list_response(scenario):
-    print(scenario["data"]["energySources"])
-    total = sum(
-        scenario["data"][key]["yearValue"]
-        for key in scenario["data"]["energySources"]
-        if len(key.split("|")) == 2 and key.endswith("|Total")
-    )
-    imports = scenario["data"]["Electricity|Imports"]["yearValue"] + sum(
-        scenario["data"][key]["yearValue"]
-        for key in scenario["data"]["energySources"]
-        if key.endswith("|Gas") or key.endswith("|Oil") or key.endswith("|Coal")
-    )
+    total = calculate_total_energy(scenario)
+
+    imports = calculate_imported_energy(scenario)
     domestic = 1 - (imports / total)
     return {
         "key": scenario["key"],
@@ -67,8 +59,30 @@ def format_scenario_list_response(scenario):
         "co2": scenario["data"]["CO2|Total"]["value"],
         "cost": scenario["data"]["Costs|System cost"]["value"],
         "domestic": domestic,
-        "total": total
+        "total": total,
     }
+
+
+def calculate_total_energy(scenario):
+    total = 0
+    for key in scenario["data"]["energySources"]:
+        if len(key.split("|")) == 2 and key.endswith("|Total") and key != "CO2|Total":
+            total += scenario["data"][key]["yearValue"]
+
+    return total
+
+
+def calculate_imported_energy(scenario):
+    is_imported = (
+        lambda source: source.endswith("|Gas")
+        or source.endswith("|Oil")
+        or source.endswith("|Coal")
+    )
+    imports = scenario["data"]["Electricity|Imports"]["yearValue"]
+    for key in scenario["data"]["energySources"]:
+        if is_imported(key):
+            imports += scenario["data"][key]["yearValue"]
+    return imports
 
 
 def load_scenarios():
