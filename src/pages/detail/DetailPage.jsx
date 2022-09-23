@@ -71,9 +71,9 @@ const DetailPage = () => {
               {scenarioTitles[scenarioData.name]} (GWh)
             </Typography.Title>
           </Space>
-          <Radio.Group value={timeOfYear} onChange={onChangeRadio}>
+          <Radio.Group size="large" value={timeOfYear} onChange={onChangeRadio}>
             {timesOfYear.map(({ value, label }) => (
-              <Radio.Button size="large" key={value} value={value}>
+              <Radio.Button key={value} value={value}>
                 {label}
               </Radio.Button>
             ))}

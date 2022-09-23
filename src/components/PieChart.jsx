@@ -21,7 +21,7 @@ export function formatImportsPieChart(scenario, timeOfYear) {
       return [];
     }
     const source = scenario.data[sourceName];
-    return [{ y: source[timeOfYear], name: sourceName }];
+    return [{ y: source[timeOfYear], name: sourceName.replaceAll("|", " | ") }];
   });
   const domestic =
     totalEnergy -
@@ -35,6 +35,13 @@ export function formatImportsPieChart(scenario, timeOfYear) {
 const PieChart = ({ scenario }) => {
   const getChartOptions = () => ({
     chart: { type: "pie" },
+    plotOptions: {
+      pie: {
+        dataLabels: {
+          format: "{point.name}: {point.percentage:.1f} %",
+        },
+      },
+    },
     title: { text: "" },
     tooltip: {
       pointFormat: "<strong>{point.y:.2f} ({point.percentage:.1f}%)</strong>",
