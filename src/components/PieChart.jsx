@@ -13,7 +13,7 @@ export function formatImportsPieChart(scenario, timeOfYear) {
     })
     .reduce((a, b) => a + b);
   const imports = scenario.data.energySources.flatMap((sourceName) => {
-    const importSources = ["Gas", "Oil", "Coal"];
+    const importSources = ["Gas", "Oil", "Coal", "Imports"];
     const importRegex = new RegExp(
       "(" + importSources.map((source) => `\\|${source}`).join("|") + ")$"
     );
