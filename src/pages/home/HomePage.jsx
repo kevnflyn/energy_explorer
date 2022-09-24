@@ -51,30 +51,51 @@ const HomePage = () => {
               {scenarioTitles[value] ?? value}
             </Link>
           )}
+          sorter={(a, b) => {
+            return scenarioTitles[a.name].localeCompare(scenarioTitles[b.name]);
+          }}
+          defaultSortOrder="ascend"
+          sortDirections={["ascend", "descend", "ascend"]}
         />
         <Column
           title="CO2"
           dataIndex="co2"
           key="co2"
           render={withUnit("MtCO2", showCircle)}
+          sorter={(a, b) => {
+            return a.co2 - b.co2;
+          }}
+          sortDirections={["descend", "ascend", "descend"]}
         />
         <Column
           title="Cost"
           dataIndex="cost"
           key="cost"
           render={withUnit("M.CHF", showCircle)}
+          sorter={(a, b) => {
+            return a.cost - b.cost;
+          }}
+          sortDirections={["descend", "ascend", "descend"]}
         />
         <Column
           title="Domestic Energy Production"
           dataIndex="domestic"
           key="domestic"
           render={toPercentage(showCircle)}
+          sorter={(a, b) => {
+            return a.domestic - b.domestic;
+          }}
+          sortDirections={["descend", "ascend", "descend"]}
         />
         <Column
           title="Total energy"
           dataIndex="total"
           key="total"
           render={withUnit("GWh", showCircle)}
+          sorter={(a, b) => {
+            return a.total - b.total;
+          }}
+          sortDirections={["descend", "ascend", "descend"]}
         />
       </Table>
     </ApplicationWrapper>
