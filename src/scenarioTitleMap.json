@@ -12,5 +12,6 @@
   "co2-0_no_elec_imports_2050": "0 Mt CO2 in 2050 without electricity imports",
   "co2-0_ elec_imports_2050": "0 Mt CO2 in 2050 with electricity imports",
   "co2--5_no_elec_imports_2050": "Net zero (-5 Mt CO2) in 2050 without electricity imports",
-  "co2--5_ elec_imports_2050": "Net zero  (-5 Mt CO2) in 2050 with electricity imports"
+  "co2--5_ elec_imports_2050": "Net zero  (-5 Mt CO2) in 2050 with electricity imports",
+  "co2-0_no_elec_imports_2020": "2020 without electricity imports"
 }
