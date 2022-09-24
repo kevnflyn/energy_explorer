@@ -122,3 +122,64 @@ $ poetry run uvicorn main:app --reload
 ```
 
 The application will be accessible from `localhost:8000`.
+
+### Importing scenarios
+
+To import scenarios you need to install the dependencies with Poetry, as
+outlined above.
+
+To import a CSV file, it needs to be saved in the `data/import` directory. Once it's there, all the files in the directory will be imported by running:
+
+```bash
+# You need to be in the `api` directory.
+$ poetry run import
+```
+
+You should get an output for each file and scenario that gets imported:
+
+
+```bash
+$ poetry run import
+Processing newScenarios.csv
+	Importing scenario: co2--5_ elec_imports_2050
+	Importing scenario: co2--5_no_elec_imports_2050
+	Importing scenario: co2-0_ elec_imports_2050
+	Importing scenario: co2-0_no_elec_imports_2020
+	Importing scenario: co2-0_no_elec_imports_2050
+	Importing scenario: co2-10_ elec_imports_2050
+	Importing scenario: co2-10_no_elec_imports_2050
+	Importing scenario: co2-15_ elec_imports_2050
+	Importing scenario: co2-15_no_elec_imports_2050
+	Importing scenario: co2-20_ elec_imports_2050
+	Importing scenario: co2-20_no_elec_imports_2050
+	Importing scenario: co2-25_ elec_imports_2050
+	Importing scenario: co2-25_no_elec_imports_2050
+	Importing scenario: co2-5_ elec_imports_2050
+	Importing scenario: co2-5_no_elec_imports_2050
+```
+
+To publish the newly imported scenarios, just commit and push the files:
+
+```bash
+$ git add data/
+$ git commit -m 'Added scenarios for <short description of scenarios>'
+$ git push
+```
+
+#### CSV format
+
+The CSV should follow the same format as the `data/import/newScenarios.csv`
+file already present. In particular:
+
+ * The first row should contain the column names
+ * The first column must be named `scenario`
+ * The second column must be named `year`
+ * The third column must be named `index`
+ * There should be 192 columns with values (whose names don't matter), 8
+   columns per day, 2 days per month, per 12 months.
+ * Rows that represent a yearly value only, must have the yearly value in the
+   fourth column and the remaining 191 must be empty.
+
+**Please note**: If multiple scenarios have the same name and year, only the
+last processed scenario in the last processed file will be output. Ensure
+unique scenario names and year across files.

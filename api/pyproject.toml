@@ -4,13 +4,20 @@ version = "0.1.0"
 description = ""
 authors = ["Stéphane Bisinger <stephane@sbisinger.ch>"]
 readme = "README.md"
-packages = []
+packages = [{ include= "importer" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.85.0"
 uvicorn = "^0.18.3"
 pandas = "^1.4.4"
+
+[tool.poetry.scripts]
+import = "importer.main:run"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
 
 
 [build-system]

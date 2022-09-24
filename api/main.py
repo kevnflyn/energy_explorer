@@ -36,14 +36,12 @@ def list_scenarios():
     scenarios = [
         format_scenario_list_response(scenario) for scenario in scenario_db.values()
     ]
-    print(scenarios)
     return scenarios
 
 
 @app.get("/scenarios/{id}")
 def get_scenario(id):
     load_scenarios()
-    print(scenario_db)
     print(scenario_db.get(id))
     return scenario_db.get(id)
 
