@@ -5,3 +5,29 @@
 :global(.highcharts-credits) {
   display: none;
 }
+
+.small-diagrams {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.small-diagrams > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.small-diagrams > div > div {
+  height: 50vw;
+  width: 75vw;
+}
+
+@media (min-width: 1306px) {
+  .small-diagrams {
+    grid-template-columns: 1fr 1fr;
+  }
+  .small-diagrams > div > div {
+    height: 20vw;
+    width: 40vw;
+  }
+}

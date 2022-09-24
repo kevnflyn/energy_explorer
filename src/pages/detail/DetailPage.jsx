@@ -87,14 +87,24 @@ const DetailPage = () => {
             timeOfYear={timeOfYear}
             id={id}
           />
-          <Typography.Title level={2}>Composition of imports</Typography.Title>
-          <PieChart
-            scenario={formatImportsPieChart(scenarioData, timeOfYear)}
-          />
-          <Typography.Title level={2}>
-            Winter-Summer Energy Mix
-          </Typography.Title>
-          <PolarChart scenario={formatWinterSummerComparison(scenarioData)} />
+          <section className={styles["small-diagrams"]}>
+            <div>
+              <Typography.Title level={2}>
+                Composition of imports
+              </Typography.Title>
+              <PieChart
+                scenario={formatImportsPieChart(scenarioData, timeOfYear)}
+              />
+            </div>
+            <div>
+              <Typography.Title level={2}>
+                Winter-Summer Energy Mix
+              </Typography.Title>
+              <PolarChart
+                scenario={formatWinterSummerComparison(scenarioData)}
+              />
+            </div>
+          </section>
         </Space>
       </div>
     </ApplicationWrapper>
