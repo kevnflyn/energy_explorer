@@ -2,6 +2,10 @@ from enum import Enum, auto
 import json
 import os
 import pandas
+from calendar import monthrange
+
+SIMULATED_DAYS = 2
+SIMULATED_HOURS_IN_A_DAY = 8
 
 
 def run():
@@ -49,12 +53,14 @@ def transform_scenario_data(data: pandas.DataFrame):
                 "unit": "MT CO2" if "CO2" in sector else "million euro",
             }
         else:
-            winter_value = calculate_winter_value(sector_data)
-            summer_value = calculate_summer_value(sector_data)
+            monthly_values = calculate_monthly_values(sector_data)
+            winter_value = sum(monthly_values[0:3] + monthly_values[9:])
+            summer_value = sum(monthly_values[3:9])
             json_data[sector] = {
+                "monthlyValues": monthly_values,
                 "winterValue": winter_value,
                 "summerValue": summer_value,
-                "yearValue": winter_value + summer_value,
+                "yearValue": sum(monthly_values),
                 "longUnit": "Total GWh per time interval",
                 "shortUnit": "GWh/t",
             }
@@ -73,22 +79,27 @@ Months = Enum(
 
 
 def month_index(month: Months):
-    simulated_hours = 8
-    simulated_days = 2
-    return (month.value - 1) * simulated_hours * simulated_days + 1
+    return (month.value - 1) * SIMULATED_HOURS_IN_A_DAY * SIMULATED_DAYS + 1
 
 
 def month_range(starting_moth: Months, end_month: Months):
     return list(range(month_index(starting_moth), month_index(end_month)))
 
 
-def calculate_winter_value(data: pandas.DataFrame):
-    indexes = month_range(Months.JANUARY, Months.APRIL) + month_range(
-        Months.OCTOBER, Months.NEXT_JANUARY
-    )
-    return data[indexes].sum() * 3 * 365 / 24
-
-
-def calculate_summer_value(data: pandas.DataFrame):
-    indexes = month_range(Months.APRIL, Months.OCTOBER)
-    return data[indexes].sum() * 3 * 365 / 24
+def calculate_monthly_values(data: pandas.DataFrame):
+    monthly_values = []
+    for month_number in range(12):
+        measurements_in_month = SIMULATED_DAYS * SIMULATED_HOURS_IN_A_DAY
+        days_in_month = monthrange(2050, month_number + 1)[1]
+        first_value_index = 1 + month_number * measurements_in_month
+        last_value_index = (
+            1 + month_number * measurements_in_month + measurements_in_month
+        )
+        monthly_values.append(
+            data[first_value_index:last_value_index].astype("float64")
+            .sum()
+            * (24 / SIMULATED_HOURS_IN_A_DAY)
+            * days_in_month
+            / SIMULATED_DAYS
+        )
+    return monthly_values
