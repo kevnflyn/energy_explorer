@@ -14,6 +14,7 @@ import PieChart, { formatImportsPieChart } from "../../components/PieChart";
 import PolarChart, {
   formatWinterSummerComparison,
 } from "../../components/PolarChart";
+import { API_HOST } from "../../config";
 
 const timesOfYear = [
   {
@@ -43,7 +44,7 @@ const DetailPage = () => {
     const fetchScenario = async () => {
       try {
         // ToDo: we need to fetch from this API at some point :)
-        const response = await fetch(`http://localhost:8000/scenarios/${id}`);
+        const response = await fetch(`${API_HOST}/scenarios/${id}`);
         // const response = await fetch(`../../../data/scenario_${id}.json`, {
         //   headers: {
         //     "Content-Type": "application/json",
